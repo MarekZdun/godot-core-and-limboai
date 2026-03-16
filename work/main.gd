@@ -13,11 +13,6 @@ const SAVE_GAME_FOLDER = "user://save_games"
 @export var next_scene_id: String
 @export_dir var support_dir: String = "res://work/scenes/support/"
 
-var gui_main_menu: ProxyGui
-var gui_curtain: ProxyGui
-var gui_progress: ProxyGui
-var gui_hud: ProxyGui
-
 @onready var main_hsm: LimboHSM = %MainHSM
 
 

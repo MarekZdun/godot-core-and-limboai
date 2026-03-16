@@ -7,7 +7,7 @@ var gui_progress_loaded: bool = false
 
 func _enter():
 	var gui_progress_id: String = GuiManager.add_gui_above_top_one("progress", transition_config_fade_in_001)
-	agent.gui_progress = GuiManager.get_gui(gui_progress_id)
+	get_root().gui_progress = GuiManager.get_gui(gui_progress_id)
 	GuiManager.manager_gui_loaded.connect(_on_gui_on_screen)
 	
 	
@@ -22,5 +22,5 @@ func _update(_p_delta):
 
 
 func _on_gui_on_screen(gui):
-	if gui.id == agent.gui_progress.id:
+	if gui.id == get_root().gui_progress.id:
 		gui_progress_loaded = true

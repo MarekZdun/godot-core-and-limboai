@@ -6,7 +6,7 @@ var gui_progress_unloaded: bool = false
 
 
 func _enter():
-	GuiManager.destroy_gui(agent.gui_progress.id, transition_config_fade_out_001)
+	GuiManager.destroy_gui(get_root().gui_progress.id, transition_config_fade_out_001)
 	GuiManager.manager_gui_unloaded.connect(_on_gui_off_screen)
 	
 	
@@ -21,5 +21,5 @@ func _update(_p_delta):
 	
 	
 func _on_gui_off_screen(gui_id):
-	if gui_id == agent.gui_progress.id:
+	if gui_id == get_root().gui_progress.id:
 		gui_progress_unloaded = true

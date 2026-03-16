@@ -1,5 +1,10 @@
 extends LimboHSM
 
+var gui_main_menu: ProxyGui
+var gui_curtain: ProxyGui
+var gui_progress: ProxyGui
+var gui_hud: ProxyGui
+
 @onready var idle: LimboState = %Idle
 @onready var main_menu: LimboState = %MainMenu
 @onready var change_level: LimboState = %ChangeLevel

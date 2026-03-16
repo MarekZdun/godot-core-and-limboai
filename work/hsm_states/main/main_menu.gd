@@ -6,12 +6,12 @@ var button_play_menu_clicked: bool = false
 
 
 func _enter():
-	agent.gui_main_menu = GuiManager.get_gui(GuiManager.add_gui("main_menu", 1, null))
-	agent.gui_main_menu.button_play_game_click.connect(_on_button_play_game_clicked)
+	get_root().gui_main_menu = GuiManager.get_gui(GuiManager.add_gui("main_menu", 1, null))
+	get_root().gui_main_menu.button_play_game_click.connect(_on_button_play_game_clicked)
 	
 	
 func _exit():
-	agent.gui_main_menu.button_play_game_click.disconnect(_on_button_play_game_clicked)
+	get_root().gui_main_menu.button_play_game_click.disconnect(_on_button_play_game_clicked)
 	
 	
 func _update(_p_delta):

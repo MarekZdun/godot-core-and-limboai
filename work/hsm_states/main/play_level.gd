@@ -18,7 +18,7 @@ func _update(_p_delta):
 	if exit_level:
 		exit_level = false
 		SceneManager.change_scene("")
-		GuiManager.destroy_gui(agent.gui_hud.id, null)
+		GuiManager.destroy_gui(get_root().gui_hud.id, null)
 		dispatch("to_main_menu")
 		
 	if go_to_next_level:
