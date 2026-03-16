@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://dwd8hcee68uc7"]
+
+[ext_resource type="Script" uid="uid://b2ogduxru2xfd" path="res://work/main.gd" id="1_pvup4"]
+[ext_resource type="Script" uid="uid://cykqxr3tv7me8" path="res://addons/game_state_saver/game_state_helper.gd" id="2_24t18"]
+[ext_resource type="Script" uid="uid://bkjc2ymcrvpqg" path="res://work/hsm_states/main_hsm.gd" id="3_3b7f2"]
+[ext_resource type="Script" uid="uid://c6texbyaxgop5" path="res://work/hsm_states/main/change_level.gd" id="3_ibuln"]
+[ext_resource type="Script" uid="uid://cllni08rdqt1x" path="res://work/hsm_states/change_level/idle.gd" id="3_q0xar"]
+[ext_resource type="Script" uid="uid://1mebheabhc15" path="res://work/hsm_states/main/idle.gd" id="3_s212o"]
+[ext_resource type="Script" uid="uid://cpm4d3ecn130k" path="res://work/hsm_states/main/main_menu.gd" id="4_gi8l0"]
+[ext_resource type="Script" uid="uid://i5xpvv23bxmc" path="res://work/hsm_states/change_level/curtain_appear.gd" id="5_antpx"]
+[ext_resource type="Resource" uid="uid://c13lnblw2cyxa" path="res://work/resources/ui/transition_config_data/transition_config_fade_in_001.tres" id="6_24t18"]
+[ext_resource type="Script" uid="uid://cdg52kykev3p8" path="res://work/hsm_states/main/play_level.gd" id="6_h76ht"]
+[ext_resource type="Script" uid="uid://ca40lx8y16cr4" path="res://work/hsm_states/change_level/progress_appear.gd" id="6_okbc6"]
+[ext_resource type="Script" uid="uid://cr4s5fq256ac" path="res://work/hsm_states/change_level/load_level.gd" id="7_24t18"]
+[ext_resource type="Script" uid="uid://d1hi2yv7ou2xc" path="res://work/hsm_states/change_level/progress_disappear.gd" id="8_s212o"]
+[ext_resource type="Script" uid="uid://65tkx1cc7u37" path="res://work/hsm_states/change_level/curtain_disappear.gd" id="9_gi8l0"]
+[ext_resource type="Script" uid="uid://csq4ejnh68vv5" path="res://work/hsm_states/change_level/finish_level_load.gd" id="10_q4252"]
+[ext_resource type="Resource" uid="uid://d3jkaiaso0h5s" path="res://work/resources/ui/transition_config_data/transition_config_fade_out_001.tres" id="12_pjr5o"]
+[ext_resource type="Script" uid="uid://dv6wp3tltamu3" path="res://work/hsm_states/main/load_saved_level.gd" id="15_q4252"]
+[ext_resource type="Script" uid="uid://4i1vnqd0un4q" path="res://work/hsm_states/load_saved_level/idle.gd" id="17_uxghm"]
+[ext_resource type="Script" uid="uid://d0rjg5ylwnw5w" path="res://work/hsm_states/load_saved_level/curtain_appear.gd" id="18_a2hmh"]
+[ext_resource type="Script" uid="uid://bfmnuey2di5oh" path="res://work/hsm_states/load_saved_level/progress_appear.gd" id="19_e3sp7"]
+[ext_resource type="Script" uid="uid://f6ojl6mb8nhl" path="res://work/hsm_states/load_saved_level/curtain_disappear.gd" id="20_3b7f2"]
+[ext_resource type="Script" uid="uid://cfncr1wa3idd7" path="res://work/hsm_states/load_saved_level/progress_disappear.gd" id="21_5207v"]
+[ext_resource type="Script" uid="uid://40r3bkrexdvb" path="res://work/hsm_states/load_saved_level/load_saved_level.gd" id="22_vusta"]
+[ext_resource type="Script" uid="uid://b2otnlvonqrc7" path="res://work/hsm_states/load_saved_level/finish_level_load.gd" id="23_daewv"]
+
+[node name="Main" type="Node" unique_id=1086463706]
+script = ExtResource("1_pvup4")
+
+[node name="GameStateHelper" type="Node" parent="." unique_id=1983927363]
+script = ExtResource("2_24t18")
+save_properties = Array[String](["next_scene_id"])
+global = true
+metadata/_custom_type_script = "uid://cykqxr3tv7me8"
+
+[node name="MainHSM" type="LimboHSM" parent="." unique_id=187648724]
+unique_name_in_owner = true
+script = ExtResource("3_3b7f2")
+
+[node name="Idle" type="LimboState" parent="MainHSM" unique_id=1853209176]
+unique_name_in_owner = true
+script = ExtResource("3_s212o")
+
+[node name="MainMenu" type="LimboState" parent="MainHSM" unique_id=789004824]
+unique_name_in_owner = true
+script = ExtResource("4_gi8l0")
+default_start_scene_filepath = "res://work/scenes/main/scene_1.tscn"
+
+[node name="ChangeLevel" type="LimboHSM" parent="MainHSM" unique_id=1723045703]
+unique_name_in_owner = true
+script = ExtResource("3_ibuln")
+
+[node name="CLIdle" type="LimboState" parent="MainHSM/ChangeLevel" unique_id=1451589686]
+unique_name_in_owner = true
+script = ExtResource("3_q0xar")
+
+[node name="CLCurtainAppear" type="LimboState" parent="MainHSM/ChangeLevel" unique_id=705437431]
+unique_name_in_owner = true
+script = ExtResource("5_antpx")
+transition_config_fade_in_001 = ExtResource("6_24t18")
+
+[node name="CLProgressAppear" type="LimboState" parent="MainHSM/ChangeLevel" unique_id=213370602]
+unique_name_in_owner = true
+script = ExtResource("6_okbc6")
+transition_config_fade_in_001 = ExtResource("6_24t18")
+
+[node name="CLLoadLevel" type="LimboState" parent="MainHSM/ChangeLevel" unique_id=247648015]
+unique_name_in_owner = true
+script = ExtResource("7_24t18")
+
+[node name="CLProgressDisappear" type="LimboState" parent="MainHSM/ChangeLevel" unique_id=2053225078]
+unique_name_in_owner = true
+script = ExtResource("8_s212o")
+transition_config_fade_out_001 = ExtResource("12_pjr5o")
+
+[node name="CLCurtainDisappear" type="LimboState" parent="MainHSM/ChangeLevel" unique_id=1969967487]
+unique_name_in_owner = true
+script = ExtResource("9_gi8l0")
+transition_config_fade_out_001 = ExtResource("12_pjr5o")
+
+[node name="CLFinishLevelLoad" type="LimboState" parent="MainHSM/ChangeLevel" unique_id=350478636]
+unique_name_in_owner = true
+script = ExtResource("10_q4252")
+
+[node name="PlayLevel" type="LimboState" parent="MainHSM" unique_id=767040904]
+unique_name_in_owner = true
+script = ExtResource("6_h76ht")
+
+[node name="LoadSavedLevel" type="LimboHSM" parent="MainHSM" unique_id=1580108694]
+unique_name_in_owner = true
+script = ExtResource("15_q4252")
+
+[node name="LSLIdle" type="LimboState" parent="MainHSM/LoadSavedLevel" unique_id=395659061]
+unique_name_in_owner = true
+script = ExtResource("17_uxghm")
+
+[node name="LSLCurtainAppear" type="LimboState" parent="MainHSM/LoadSavedLevel" unique_id=1058256936]
+unique_name_in_owner = true
+script = ExtResource("18_a2hmh")
+transition_config_fade_in_001 = ExtResource("6_24t18")
+
+[node name="LSLProgressAppear" type="LimboState" parent="MainHSM/LoadSavedLevel" unique_id=495847486]
+unique_name_in_owner = true
+script = ExtResource("19_e3sp7")
+transition_config_fade_in_001 = ExtResource("6_24t18")
+
+[node name="LSLLoadSavedLevel" type="LimboState" parent="MainHSM/LoadSavedLevel" unique_id=934365366]
+unique_name_in_owner = true
+script = ExtResource("22_vusta")
+
+[node name="LSLProgressDisappear" type="LimboState" parent="MainHSM/LoadSavedLevel" unique_id=568901084]
+unique_name_in_owner = true
+script = ExtResource("21_5207v")
+transition_config_fade_out_001 = ExtResource("12_pjr5o")
+
+[node name="LSLCurtainDisappear" type="LimboState" parent="MainHSM/LoadSavedLevel" unique_id=1566332212]
+unique_name_in_owner = true
+script = ExtResource("20_3b7f2")
+transition_config_fade_out_001 = ExtResource("12_pjr5o")
+
+[node name="LSLFinishLevelLoad" type="LimboState" parent="MainHSM/LoadSavedLevel" unique_id=71722729]
+unique_name_in_owner = true
+script = ExtResource("23_daewv")
+
+[node name="ActiveSceneContainer" type="Node" parent="." unique_id=1071360106]

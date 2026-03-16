@@ -1,0 +1,21 @@
+[gd_scene format=2]
+
+[ext_resource type="PackedScene" uid="uid://byc0phq142udx" path="res://addons/gui_manager/gui.tscn" id="1"]
+[ext_resource type="Script" uid="uid://ck0wpvgu8mhm2" path="res://work/scenes/ui/screens/progress.gd" id="2"]
+
+[node name="GuiProgress" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="ProgressBar" type="ProgressBar" parent="Root" index="0"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -34.0
+offset_right = -20.0
+offset_bottom = -20.0
+custom_minimum_size = Vector2( 100, 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

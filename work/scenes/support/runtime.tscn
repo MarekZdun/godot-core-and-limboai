@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c1jalv75ym8jn"]
+
+[ext_resource type="Script" uid="uid://cykqxr3tv7me8" path="res://addons/game_state_saver/game_state_helper.gd" id="1"]
+[ext_resource type="Script" uid="uid://srgllhwjdcqv" path="res://work/scenes/support/runtime.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://dej45u8cvvs74" path="res://icon.svg" id="3"]
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 30.0
+
+[node name="Runtime" type="Sprite2D" unique_id=2002457553]
+texture = ExtResource("3")
+script = ExtResource("2")
+
+[node name="Node" type="Node" parent="." unique_id=668434699]
+script = ExtResource("1")
+save_properties = Array[String](["stats"])
+dynamic_instance = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1760720165]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=341572803]
+shape = SubResource("1")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://u0hpkrp0rmky"]
+
+[ext_resource type="Script" uid="uid://b1k2bev7ufbja" path="res://work/scenes/main/common_scene.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://cwn16d3oenq2x" path="res://work/scenes/support/movable.tscn" id="5"]
+
+[node name="CommonScene" type="Node" unique_id=1077884030]
+script = ExtResource("2")
+runtime_collectable_filepath = "res://work/scenes/support/runtime_collectable.tscn"
+runtime_collectable_trap_filepath = "res://work/scenes/support/runtime_collectable_trap.tscn"
+runtime_trap_filepath = "res://work/scenes/support/runtime_trap.tscn"
+
+[node name="Movable" parent="." unique_id=2121757023 instance=ExtResource("5")]

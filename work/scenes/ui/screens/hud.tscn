@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://dorrcgamgy6eq"]
+
+[ext_resource type="PackedScene" uid="uid://byc0phq142udx" path="res://addons/gui_manager/gui.tscn" id="1"]
+[ext_resource type="Script" uid="uid://qhvwk53l6a7b" path="res://work/scenes/ui/screens/hud.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://p8oiyhn2lqbw" path="res://work/scenes/ui/widgets/ui_info_display.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dwftjapi708wt" path="res://work/scenes/ui/widgets/ui_inventory.tscn" id="4"]
+
+[node name="GuiHud" unique_id=378767557 instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="Root" parent="." index="0" unique_id=320395904]
+mouse_filter = 2
+
+[node name="UIInfoDisplay" parent="Root" index="0" unique_id=356841418 instance=ExtResource("3")]
+layout_mode = 0
+offset_bottom = 208.0
+
+[node name="UIInventory" parent="Root" index="1" unique_id=266037726 instance=ExtResource("4")]
+layout_mode = 1
+grow_horizontal = 0
+
+[node name="SceneIdLab" type="Label" parent="Root" index="2" unique_id=738230440]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.0
+offset_right = 20.0
+offset_bottom = 7.0
+grow_horizontal = 2
+text = "SCENE"
+
+[node name="GamePlayInfoLab" type="Label" parent="Root" index="3" unique_id=1765020297]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -444.0
+offset_top = -165.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "PRESS SHIFT + S TO SAVE GAME
+PRESS SHIFT + L TO LOAD GAME
+PRESS SPACE TO CHANGE MIDDLE LABEL COLOR
+PRESS ESCAPE TO EXIT LEVEL
+CLICK LEFT MOUSE BUTTON TO ADD/REMOVE GODOTEE"
+
+[node name="SceneInfoLab" type="Label" parent="Root" index="4" unique_id=1724269093]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -443.0
+offset_top = -38.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "PRESS ? TO GO TO LEVEL ?"

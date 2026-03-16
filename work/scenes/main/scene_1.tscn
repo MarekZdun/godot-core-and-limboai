@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c6qqdjy6wy3dl"]
+
+[ext_resource type="PackedScene" uid="uid://u0hpkrp0rmky" path="res://work/scenes/main/common_scene.tscn" id="1"]
+[ext_resource type="Script" uid="uid://c3lc7ocepjulx" path="res://work/scenes/main/scene_1.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://d26p2obfvu6mo" path="res://work/scenes/support/trigger.tscn" id="3"]
+
+[node name="Scene1" unique_id=1416141378 instance=ExtResource("1")]
+script = ExtResource("2")
+next_level_filepath = "res://work/scenes/main/scene_2.tscn"
+actor_start_pos = Vector2(1075, 325)
+next_level_key = 50
+
+[node name="Trigger" parent="." index="1" unique_id=525955802 instance=ExtResource("3")]

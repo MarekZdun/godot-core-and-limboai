@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://noxlmrquiugg"]
+
+[ext_resource type="PackedScene" uid="uid://byc0phq142udx" path="res://addons/gui_manager/gui.tscn" id="1"]
+[ext_resource type="Script" uid="uid://12xmpn1aj455" path="res://work/scenes/ui/screens/main_menu.gd" id="2"]
+
+[node name="GuiMainMenu" instance=ExtResource("1")]
+script = ExtResource("2")
+
+[node name="ColorRect" type="ColorRect" parent="Root" index="0"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.152941, 0.372549, 0.654902, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Root/ColorRect" index="0"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PlayGame" type="Button" parent="Root/ColorRect/CenterContainer" index="0"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+text = "PLAY GAME"
+
+[connection signal="pressed" from="Root/ColorRect/CenterContainer/PlayGame" to="." method="_on_PlayGame_pressed"]

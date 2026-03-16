@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c6wc8ru5wt1t5"]
+
+[ext_resource type="PackedScene" uid="uid://byc0phq142udx" path="res://addons/gui_manager/gui.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cs42bl7tn3xvy" path="res://work/scenes/ui/screens/curtain.gd" id="3"]
+
+[node name="GuiCurtain" unique_id=684866492 instance=ExtResource("1")]
+script = ExtResource("3")
+
+[node name="ColorRect" type="ColorRect" parent="Root" parent_id_path=PackedInt32Array(320395904) index="0" unique_id=637999160]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)

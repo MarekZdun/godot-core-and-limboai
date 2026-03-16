@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cm7h0d4vup0hj"]
+
+[ext_resource type="PackedScene" uid="uid://c1jalv75ym8jn" path="res://work/scenes/support/runtime.tscn" id="1"]
+[ext_resource type="Resource" path="res://work/resources/runtime/runtime_trap.tres" id="2"]
+
+[node name="RuntimeTrap" unique_id=548923906 groups=["trap"] instance=ExtResource("1")]
+modulate = Color(1, 0.141176, 0, 1)
+start_stats = ExtResource("2")

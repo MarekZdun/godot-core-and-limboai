@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dsbpjeibj2jkp"]
+
+[ext_resource type="Script" uid="uid://0v2kogfbauey" path="res://work/resources/items/item_resource.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+unique_id = "long_sword"
+display_name = "Long Sword"
+description = "long range attack"

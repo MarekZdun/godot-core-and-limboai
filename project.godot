@@ -11,8 +11,21 @@ config_version=5
 [application]
 
 config/name="Core and LimboAI"
+config/tags=PackedStringArray("system")
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameStateService="*uid://cgntdnfpebvij"
+SceneManager="*uid://cfnqfnsk30goy"
+GuiManager="*uid://7m5vpilgvcr7"
+ResourceManager="*uid://bmhgltsaxawqi"
+ItemDatabase="*uid://db78uo6ffpa55"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/game_state_saver/plugin.cfg", "res://addons/gui_manager/plugin.cfg", "res://addons/resource_manager/plugin.cfg", "res://addons/scene_manager/plugin.cfg")
 
 [physics]
 

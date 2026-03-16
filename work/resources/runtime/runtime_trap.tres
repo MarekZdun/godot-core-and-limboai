@@ -1,0 +1,11 @@
+[gd_resource type="Resource" format=2]
+
+[ext_resource type="Script" uid="uid://8nufsv7ostj4" path="res://work/resources/runtime/runtime_resource.gd" id="1"]
+
+[resource]
+script = ExtResource( 1 )
+filepath = ""
+display_name = "Runtime Trap"
+global_position = Vector2( 0, 0 )
+reward = 0
+damage = 10.0
