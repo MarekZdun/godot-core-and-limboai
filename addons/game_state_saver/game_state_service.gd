@@ -3,6 +3,56 @@ extends Node
 ## The GameStateService autoload.  Used for storing and re-applying game state to nodes in a scene
 ## as well as saving and loading game state to/from disk.
 
+'''
+MODIFIED: (c) Pioneer Games 2026
+
+DETAILED CHANGES
+1. Scene Container Architecture Integration
+    Added constant ACTIVE_SCENE_CONTAINER_NODE_PATH = "/root/Main/ActiveSceneContainer"
+    Modified scene detection logic to use the container node instead of get_tree().current_scene
+    Reason: Ensures compatibility with custom SceneManager system that manages scenes as children of a dedicated container node
+	
+2. Save Data Encryption & Security
+    Added password parameter to save_game_state() and load_game_state()
+    Integrated FileUtil for encrypted file operations (both JSON and text formats)
+    Default password: "Q6YU2eXCWN$e&uhS"
+    Reason: Protects save files from manual editing and cheating
+	
+3. SmartSerializer Integration
+    Added use_smart_parser parameter (default: true)
+    Integration with SmartSerializer for proper type preservation during serialization/deserialization
+    Supports typed arrays, dictionaries, and custom objects
+    Reason: Maintains complete type information for complex game state structures
+	
+4. Game State Version Migration
+    Added _migrate_game_state() function with version-based migration support
+    Added timestamp field to meta_data for tracking save time
+    Reason: Enables forward compatibility for save files across game updates
+
+5. Resource Manager Integration
+    Modified _instance_scene() to use ResourceManager.provide_resource() instead of direct load()
+    Reason: Centralized resource loading for better memory management and caching
+
+6. Dynamic Instance & Global Flag Improvements
+    Converted global and dynamic_instance properties to getters/setters with mutual exclusivity
+    Added notify_property_list_changed() calls to refresh inspector when flags change
+    Reason: Prevents invalid configuration states (node cannot be both global and dynamic instance)
+
+7. Node Path Validation & Conflict Resolution
+    Added get_id_with_validation() to generate unique IDs for nodes with path conflicts
+    Added get_last_node_name_from_path() helper function
+    Added node name change detection with warning messages
+    Reason: Prevents data loss when multiple dynamically instanced nodes share the same path
+
+8. Scene Transition Parameter
+    Modified on_scene_transitioning() signature to accept optional _new_scene_path parameter
+    Reason: Future compatibility with SceneManager's scene transition system
+
+9. Improved Parameter Naming
+    Renamed parameter data to scene_node_data_or_global_state in save_data() for clarity
+    Reason: Better code readability and maintenance
+'''
+
 const ACTIVE_SCENE_CONTAINER_NODE_PATH = "/root/Main/ActiveSceneContainer"
 
 ## Signal emitted when all game state has been re-applied to a newly loaded scene.  Useful for 
@@ -17,7 +67,8 @@ signal new_game_state_initialized()
 var _game_state_default := {
 	"meta_data": {
 		"current_scene_path": "",
-		"data_format_version": "1.0"
+		"data_format_version": "1.0",
+		"timestamp": 0
 	},
 	"global": {},
 	"scene_data": {},
@@ -26,7 +77,8 @@ var _game_state_default := {
 var _game_state := {
 	"meta_data": {
 		"current_scene_path": "",
-		"data_format_version": "1.0"
+		"data_format_version": "1.0",
+		"timestamp": 0
 	},
 	"global": {},
 	"scene_data": {},
@@ -107,11 +159,41 @@ func load_game_state(path: String, password: String = "Q6YU2eXCWN$e&uhS", use_sm
 			_game_state = str_to_var(FileUtil.load_encrypted_text(path, password))
 #			_game_state = FileUtil.load_encrypted_data(path, password)
 
+	_migrate_game_state()
 	#return path to scene that was current for save file
 	# this lets caller handle the transition
 	var scene_path:String = _game_state["meta_data"]["current_scene_path"]
 		
 	return scene_path
+	
+	
+func _migrate_game_state() -> void:
+	var version: String = _game_state["meta_data"].get("data_format_version", "1.0")
+	
+	match version:
+		"1.0":
+			pass
+			#_migrate_1_0_to_1_1()
+			#_game_state["meta_data"]["data_format_version"] = "1.1"
+		#"1.1":
+			#_migrate_1_1_to_2_0()
+			#_game_state["meta_data"]["data_format_version"] = "2.0"
+		#"2.0":
+			#pass
+			
+			
+#func _migrate_1_0_to_1_1() -> void:
+	## ex. in v1.1 you changed name of the key "hp" to "health"
+	#if _game_state["global"].has("hp"):
+		#_game_state["global"]["health"] = _game_state["global"]["hp"]
+		#_game_state["global"].erase("hp")
+#
+#
+#func _migrate_1_1_to_2_0() -> void:
+	## ex. in v2.0 you changed name of the key "player_data" to "player_stats"
+	#if _game_state["global"].has("player_data"):
+		#_game_state["global"]["player_stats"] = _game_state["global"]["player_data"]
+		#_game_state["global"].erase("player_data")
 
 
 ## resets game state for a new game
@@ -127,7 +209,7 @@ func save_game_state(path: String, password: String = "Q6YU2eXCWN$e&uhS", use_sm
 	#fake a scene transition to force game state to be updated
 	on_scene_transitioning()
 
-	_game_state["game_data_version"] = "1.0"
+	_game_state["meta_data"]["timestamp"] = Time.get_unix_time_from_system()
 
 	var status: int
 	if OS.is_debug_build():
