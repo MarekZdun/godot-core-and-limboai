@@ -4,7 +4,16 @@ extends Object
 SmartSerializer - A recursive serializer/deserializer for Godot data types.
 
 (c) Pioneer Games
-v 2.1
+v 2.2
+
+CHANGES v2.2:
+- serialize_array_data: script saved as resource_path string instead of object
+- serialize_dictionary_data: key_script and value_script saved as resource_path strings
+- deserialize_array_data: script loaded from path string via load()
+- deserialize_dictionary_data: key_script and value_script loaded from path strings
+- deserialize_object_data: removed .assign() — direct assignment preserves typed array
+- deserialize_dictionary_data: removed .assign() — direct assignment preserves typed array
+- deserialize_array_data: removed nested .assign() — direct append preserves typed array
 
 DESCRIPTION:
 This utility class provides methods to convert Godot data types into plain 
