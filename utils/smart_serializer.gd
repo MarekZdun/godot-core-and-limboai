@@ -167,10 +167,10 @@ static func serialize_dictionary_data(dic: Dictionary) -> Dictionary:
 			"typed": dic.is_typed(),
 			"key_builtin": dic.get_typed_key_builtin(),
 			"key_class_name": dic.get_typed_key_class_name(),
-			"key_script": dic.get_typed_key_script(),
+			"key_script": dic.get_typed_key_script().resource_path if dic.get_typed_key_script() else "",
 			"value_builtin": dic.get_typed_value_builtin(),
 			"value_class_name": dic.get_typed_value_class_name(),
-			"value_script": dic.get_typed_value_script()
+			"value_script": dic.get_typed_value_script().resource_path if dic.get_typed_value_script() else ""
 		}
 	}
 
@@ -188,7 +188,7 @@ static func serialize_array_data(arr: Array) -> Dictionary:
 			"typed": arr.is_typed(),
 			"builtin": arr.get_typed_builtin(),
 			"class_name": arr.get_typed_class_name(),
-			"script": arr.get_typed_script()
+			"script": arr.get_typed_script().resource_path if arr.get_typed_script() else ""
 		}
 	}
 
@@ -442,9 +442,8 @@ static func deserialize_object_data(text_data: Dictionary) -> Object:
 		var prop_entry: Dictionary = value[prop_name]
 		var prop_type: int = prop_entry.type
 
-		# Typed arrays must use .assign() to preserve type constraints
 		if prop_type == TYPE_ARRAY:
-			output_data[prop_name].assign(deserialize_array_data(prop_entry))
+			output_data[prop_name] = deserialize_array_data(prop_entry)
 		else:
 			output_data.set(prop_name, deserialize_variant_data(prop_entry))
 
@@ -459,10 +458,12 @@ static func deserialize_dictionary_data(text_data: Dictionary) -> Dictionary:
 	if metadata.get("typed", false):
 		var key_builtin: int = metadata.get("key_builtin", TYPE_NIL)
 		var key_class_name: StringName = metadata.get("key_class_name", "")
-		var key_script: Variant = metadata.get("key_script", null)
+		var key_script_path: String = metadata.get("key_script", "")
+		var key_script: Variant = load(key_script_path) if not key_script_path.is_empty() else null
 		var value_builtin: int = metadata.get("value_builtin", TYPE_NIL)
 		var value_class_name: StringName = metadata.get("value_class_name", "")
-		var value_script: Variant = metadata.get("value_script", null)
+		var value_script_path: String = metadata.get("value_script", "")
+		var value_script: Variant = load(value_script_path) if not value_script_path.is_empty() else null
 		output_data = Dictionary({}, key_builtin, key_class_name, key_script, value_builtin, value_class_name, value_script)
 	else:
 		output_data = {}
@@ -471,10 +472,8 @@ static func deserialize_dictionary_data(text_data: Dictionary) -> Dictionary:
 		var prop_entry: Dictionary = value[key]
 		var prop_type: int = prop_entry.type
 
-		# Typed arrays must use .assign() to preserve type constraints
 		if prop_type == TYPE_ARRAY:
-			output_data[key] = []
-			output_data[key].assign(deserialize_array_data(prop_entry))
+			output_data[key] = deserialize_array_data(prop_entry)
 		else:
 			output_data[key] = deserialize_variant_data(prop_entry)
 
@@ -489,7 +488,8 @@ static func deserialize_array_data(text_data: Dictionary) -> Array:
 	if metadata.get("typed", false):
 		var value_builtin: int = metadata.get("builtin", TYPE_NIL)
 		var value_class_name: StringName = metadata.get("class_name", "")
-		var value_script: Variant = metadata.get("script", null)
+		var script_path: String = metadata.get("script", "")
+		var value_script: Variant = load(script_path) if not script_path.is_empty() else null
 		output_data = Array([], value_builtin, value_class_name, value_script)
 	else:
 		output_data = []
@@ -498,11 +498,8 @@ static func deserialize_array_data(text_data: Dictionary) -> Array:
 		var prop_entry: Dictionary = entry
 		var prop_type: int = prop_entry.type
 
-		# Nested typed arrays need a local typed array via .assign()
 		if prop_type == TYPE_ARRAY:
-			var nested: Array = []
-			nested.assign(deserialize_array_data(prop_entry))
-			output_data.append(nested)
+			output_data.append(deserialize_array_data(prop_entry))
 		else:
 			output_data.append(deserialize_variant_data(prop_entry))
 
